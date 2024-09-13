@@ -1,34 +1,79 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { fontSize } from "@/constants/Tokens";
+import { BlurView } from "expo-blur";
+import { Tabs } from "expo-router";
+import { StyleSheet } from "react-native";
+import { Entypo, FontAwesome, FontAwesome6, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { useThemeColors } from "@/hooks/useThemeColors";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const Colors = useThemeColors()
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: Colors.tabTint,
+        tabBarActiveBackgroundColor: Colors.tabBackground,
+        tabBarLabelStyle: {
+          fontSize: fontSize.xs,
+          fontWeight: "500",
+        },
         headerShown: false,
-      }}>
+        tabBarStyle: {
+          position: "absolute",
+          borderTopWidth: 0,
+          marginBottom: -3,
+          paddingBottom: 5,
+          height: "8%",
+        },
+        tabBarBackground: () => {
+          return (
+            <BlurView
+              intensity={95}
+              tint="dark"
+              style={{
+                ...StyleSheet.absoluteFillObject,
+                overflow: "hidden",
+                borderTopLeftRadius: 20,
+                borderTopRightRadius: 20,
+              }}
+            />
+          );
+        },
+      }}
+    >
       <Tabs.Screen
-        name="index"
+        name="favorites"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+          title: "Favorites",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="heart" size={25} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="playlists"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+          title: "Playlists",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="playlist-play" size={45} color={color}/>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="(songs)"
+        options={{
+          title: "Songs",
+          tabBarIcon: ({ color }) => (
+            <Entypo name="folder-music" size={25} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="artists"
+        options={{
+          title: "Artists",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome6 name="users-line" size={25} color={color} />
           ),
         }}
       />
