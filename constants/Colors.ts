@@ -9,7 +9,7 @@ const tintColorDark = "#fff";
 export const Colors = {
   light: {
     primary: "#fc3c44",
-    background: "#FFFFFF",
+    background: "#000000",
     text: "#fff",
     textMuted: "#9ca3af",
     icon: "#fff",
@@ -17,6 +17,7 @@ export const Colors = {
     tabTint: "#ff8888",
     maximumTrackTintColor: "rgba(255,255,255,0.4)",
     minimumTrackTintColor: "rgba(255,255,255,0.6)",
+    searchBackground: "#242424",
   },
   dark: {
     primary: "#fc3c44",
@@ -28,5 +29,6 @@ export const Colors = {
     tabTint: "#ff8888",
     maximumTrackTintColor: "rgba(255,255,255,0.4)",
     minimumTrackTintColor: "rgba(255,255,255,0.6)",
+    searchBackground: "#242424",
   },
 };

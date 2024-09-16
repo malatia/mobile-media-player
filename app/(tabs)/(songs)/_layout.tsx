@@ -3,6 +3,7 @@ import { useThemeColors } from "@/hooks/useThemeColors";
 import { useDynamicStyles } from '@/hooks/useDynamicStyles';
 import { Stack } from "expo-router";
 import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SongsScreenLayout() {
   const Colors = useThemeColors()

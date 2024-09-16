@@ -4,61 +4,32 @@ import FastImage from "react-native-fast-image"; // Si tu veux utiliser react-na
 import { useDynamicStyles } from "@/hooks/useDynamicStyles";
 import { fontSize } from "@/constants/Tokens";
 import { useThemeColors } from "@/hooks/useThemeColors";
+import { Track, useActiveTrack, useIsPlaying } from "react-native-track-player";
+import { Entypo, Ionicons } from "@expo/vector-icons";
+import LoaderKit from "react-native-loader-kit";
 
 export type TracksListItemProps = {
-  track: { title: string; image?: string; artist?: string };
+  track: Track;
+  onTrackSelect: (Track: Track) => void;
 };
 
-export default function TracksListItem({ track }: TracksListItemProps) {
-  const isActiveTrack = false;
+export default function TracksListItem({
+  track,
+  onTrackSelect,
+}: TracksListItemProps) {
+  const isActiveTrack = useActiveTrack()?.url === track.url;
   const Colors = useThemeColors();
   const { defaultStyles } = useDynamicStyles();
-
-  const styles = StyleSheet.create({
-    trackItemContainer: {
-      flexDirection: "row",
-      columnGap: 14,
-      alignItems: "center",
-      paddingRight: 20,
-    },
-    trackPlayingIconIndicator: {
-      position: "absolute",
-      top: 18,
-      left: 16,
-      width: 16,
-      height: 16,
-    },
-    trackPausedIndicator: {
-      position: "absolute",
-      top: 14,
-      left: 14,
-    },
-    trackArtworkImage: {
-      borderRadius: 8,
-      width: 50,
-      height: 50,
-    },
-    trackTitleText: {
-      ...defaultStyles.text,
-      fontSize: fontSize.sm,
-      fontWeight: "600",
-      maxWidth: "100%",
-    },
-    trackArtistText: {
-      ...defaultStyles.text,
-      fontSize: 14,
-      marginTop: 4,
-    },
-  });
+  const { playing } = useIsPlaying();
 
   return (
-    <Pressable>
+    <Pressable onPress={() => onTrackSelect(track)}>
       <View style={styles.trackItemContainer}>
         <View>
           <Image
             source={
-              track.image
-                ? { uri: track.image } // Si track.image existe, utiliser cette image
+              track.artwork
+                ? { uri: track.artwork } // Si track.image existe, utiliser cette image
                 : require("@/assets/images/unknown_track.png") // Sinon, utiliser l'image par défaut
             }
             style={{
@@ -66,28 +37,85 @@ export default function TracksListItem({ track }: TracksListItemProps) {
               opacity: isActiveTrack ? 0.6 : 1.0,
             }}
           />
-        </View>
-        <View>
-          <Text
-            numberOfLines={1}
-            style={{
-              ...styles.trackTitleText,
-              color: isActiveTrack ? Colors.primary : Colors.text,
-            }}
-          >
-            {track.title}
-          </Text>
 
-          {track.artist && (
+          {isActiveTrack &&
+            (playing ? (
+              <LoaderKit style={styles.trackPlayingIconIndicator} name="LineScaleParty" color={Colors.icon} />
+            ) : (
+              <Ionicons style={styles.trackPausedIndicator} name="play" size={24} color={Colors.icon} />
+            ))}
+        </View>
+
+        <View style={styles.innerText}>
+          <View>
             <Text
               numberOfLines={1}
-              style={[styles.trackArtistText, { color: Colors.textMuted }]}
+              style={[
+                defaultStyles.text,
+                styles.trackTitleText,
+                { color: isActiveTrack ? Colors.tabTint : Colors.text },
+              ]}
             >
-              {track.artist}
+              {track.title}
             </Text>
-          )}
+
+            {track.artist && (
+              <Text
+                numberOfLines={1}
+                style={[
+                  defaultStyles.text,
+                  styles.trackArtistText,
+                  { color: Colors.textMuted },
+                ]}
+              >
+                {track.artist}
+              </Text>
+            )}
+          </View>
+
+          <Entypo name="dots-three-horizontal" size={18} color={Colors.icon} />
         </View>
       </View>
     </Pressable>
   );
 }
+
+const styles = StyleSheet.create({
+  trackItemContainer: {
+    flexDirection: "row",
+    columnGap: 14,
+    alignItems: "center",
+    paddingHorizontal: 20,
+  },
+  trackPlayingIconIndicator: {
+    position: "absolute",
+    top: 10,
+    left: 10,
+    width: 32,
+    height: 32,
+  },
+  trackPausedIndicator: {
+    position: "absolute",
+    top: 14,
+    left: 14,
+  },
+  trackArtworkImage: {
+    borderRadius: 8,
+    width: 50,
+    height: 50,
+  },
+  trackTitleText: {
+    fontSize: fontSize.sm,
+    fontWeight: "600",
+    maxWidth: 280,
+  },
+  trackArtistText: {
+    fontSize: 14,
+    marginTop: 4,
+  },
+  innerText: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+});
