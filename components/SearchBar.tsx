@@ -7,9 +7,10 @@ import { useThemeColors } from "@/hooks/useThemeColors";
 type Props = {
   value: string;
   onChange: (s: string) => void;
+  placeholder: string;
 };
 
-export default function SearchBar({ value, onChange }: Props) {
+export default function SearchBar({ value, onChange, placeholder }: Props) {
   const Colors = useThemeColors();
 
   const [text, setText] = useState(value);
@@ -38,7 +39,7 @@ export default function SearchBar({ value, onChange }: Props) {
         onChangeText={handleChange}
         value={value}
         style={[styles.textInput, { color: Colors.text }]}
-        placeholder="Find in songs"
+        placeholder={placeholder}
         placeholderTextColor="#BBBBBB"
       />
 
@@ -70,5 +71,4 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     flex: 1,
   },
-
 });

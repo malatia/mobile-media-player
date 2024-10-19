@@ -1,12 +1,27 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { useDynamicStyles } from '@/hooks/useDynamicStyles';
+import { View, Text, ScrollView, StyleSheet } from "react-native";
+import React from "react";
+import { useDynamicStyles } from "@/hooks/useDynamicStyles";
+import MediaTest from "@/components/MediaTest";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 export default function PlaylistsScreen() {
-  const { defaultStyles } = useDynamicStyles()
+  const headerHeight = useHeaderHeight();
+  const { defaultStyles } = useDynamicStyles();
   return (
-    <View style= {defaultStyles.container}>
-      <Text style={defaultStyles.text}>Playlists Screen</Text>
+    <View
+      style={[
+        defaultStyles.container,
+        styles.body,
+        { paddingTop: headerHeight },
+      ]}
+    >
+      <MediaTest />
     </View>
-  )
+  );
 }
+
+const styles = StyleSheet.create({
+  body: {
+    paddingTop: 50,
+  },
+});

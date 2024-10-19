@@ -17,6 +17,7 @@ import {
 import { useActiveTrack } from "react-native-track-player";
 import { PlayPauseButton, SkipToNextButton } from "./PlayerControls";
 import useLastActiveTrack from "@/hooks/useLastActiveTrack";
+import { MovingText } from "./MovingText";
 
 export const FloatingPlayer = ({ style }: ViewProps) => {
   const router = useRouter();
@@ -27,14 +28,14 @@ export const FloatingPlayer = ({ style }: ViewProps) => {
 
   const displayedTrack = activeTrack ?? lastActiveTrack
 
-  // const handlePress = () => {
-  // 	router.navigate('/player')
-  // }
+  const handlePress = () => {
+  	router.navigate('/player')
+  }
 
   if (!displayedTrack) return null;
 
   return (
-    <Pressable style={[styles.container, style]}>
+    <Pressable onPress={handlePress} style={[styles.container, style]}>
       <>
         <Image
           source={
@@ -46,9 +47,7 @@ export const FloatingPlayer = ({ style }: ViewProps) => {
         />
 
         <View style={styles.trackTitleContainer}>
-          <Text style={[styles.trackTitle, defaultStyles.text]}>
-            {displayedTrack.title ?? ""}
-          </Text>
+          <MovingText style={[styles.trackTitle, defaultStyles.text]} text={displayedTrack.title ?? ""} animationThreshold={25}/>
         </View>
 
         <View style={styles.trackControlsContainer}>
