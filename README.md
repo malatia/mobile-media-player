@@ -4,7 +4,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 <h2>Presentation</h2>
 This project is intended to be a simple to use music player without any ads. 
-I was bothered by apps  that took the liberty of adding ads between my songs. <br/>And out of the four apps I tested, they all did it. So, I decided to start a project to code my own app.<br/> This app is intended to be used with local files, since it's my own personnal need for the moment.<br/>A lot of this code was inspired by [this video](https://www.youtube.com/watch?v=9CElrkFwiBU)<br/> But since it's intended for iOS and with a dummy song library, and I'm on android and want to use it with actual local files, i adapted it.
+I was bothered by apps  that took the liberty of adding ads between my songs. <br/>And out of the four apps I tested, they all did it. So, I decided to start a project to code my own app.<br/> This app is intended to be used with local files, since it's my own personnal need for the moment.<br/>A lot of this code was inspired by <a href="https://www.youtube.com/watch?v=9CElrkFwiBU">this video</a>.<br/> But since it's intended for iOS and with a dummy song library, and I'm on android and want to use it with actual local files, I adapted it.
 
 ## Build Yourself
 
