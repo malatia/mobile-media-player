@@ -4,19 +4,29 @@ import { Artist, Playlist, TrackWithPlaylist } from "@/helpers/types";
 import { useMemo } from "react";
 import { Track } from "react-native-track-player";
 import { create } from "zustand";
+import {Album, getAlbumsAsync} from "expo-media-library";
 
 interface LibraryState {
   tracks: TrackWithPlaylist[];
   toggleTrackFavorite: (track: Track) => void;
   addToPlaylist: (track: Track, playlistName: string) => void;
+  getFolders: () => Promise<Album[]>,
 }
 
 export const useLibraryStore = create<LibraryState>()((set) => ({
   tracks: library,
   toggleTrackFavorite: () => {},
   addToPlaylist: () => {},
+
+  getFolders: async () => {
+    return await getAlbumsAsync({
+      includeSmartAlbums: true,
+    });
+    
+  },
 }));
 
+export const useFolders = () => useLibraryStore((state) => state.getFolders)
 export const useTracks = () => useLibraryStore((state) => state.tracks);
 
 export const useFavorites = () => {

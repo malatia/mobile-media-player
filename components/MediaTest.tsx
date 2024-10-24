@@ -9,13 +9,16 @@ import {
   View,
   Platform,
   Pressable,
+  ActivityIndicator,
 } from "react-native";
 import * as MediaLibrary from "expo-media-library";
 import TrackPlayer from "react-native-track-player";
+import { useDynamicStyles } from "@/hooks/useDynamicStyles";
 
 export default function MediaTest() {
   const [albums, setAlbums] = useState(null);
   const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
+  const defaultStyles = useDynamicStyles();
   console.log("MediaTest rendered");
 
   useEffect(() => {
@@ -32,19 +35,29 @@ export default function MediaTest() {
     const fetchedAlbums = await MediaLibrary.getAlbumsAsync({
       includeSmartAlbums: true,
     });
-    setAlbums(fetchedAlbums);
+    if (fetchedAlbums) {
+      setAlbums(fetchedAlbums);
+    }
     console.log(albums);
   }
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <Button onPress={getAlbums} title="Get albums" />
-      <ScrollView>
-        {albums &&
-          albums.map((album) => <AlbumEntry key={album.id} album={album} />)}
-      </ScrollView>
-    </SafeAreaView>
-  );
+  if (albums) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Button onPress={getAlbums} title="Get albums" />
+        <ScrollView>
+          {albums &&
+            albums.map((album) => <AlbumEntry key={album.id} album={album} />)}
+        </ScrollView>
+      </SafeAreaView>
+    );
+  } else {
+    return (
+      <SafeAreaView style={styles.container}>
+        <ActivityIndicator size="large" />
+      </SafeAreaView>
+    );
+  }
 }
 
 function AlbumEntry({ album }) {

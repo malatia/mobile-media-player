@@ -41,6 +41,8 @@ export default function MediaTest2() {
     }
 
     setTracks(songsOrError);
+    console.log(tracks);
+    
     setIsReady(true);
   }
 

@@ -6,6 +6,7 @@ import {
   Entypo,
   FontAwesome,
   FontAwesome6,
+  Fontisto,
   Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
@@ -76,16 +77,16 @@ export default function TabLayout() {
           options={{
             title: "Songs",
             tabBarIcon: ({ color }) => (
-              <Entypo name="folder-music" size={25} color={color} />
+              <Ionicons name="musical-notes" size={35} color={color} />
             ),
           }}
         />
         <Tabs.Screen
-          name="artists"
+          name="(folders)"
           options={{
-            title: "Artists",
+            title: "Folders",
             tabBarIcon: ({ color }) => (
-              <FontAwesome6 name="users-line" size={25} color={color} />
+              <Entypo name="folder-music" size={25} color={color} />
             ),
           }}
         />

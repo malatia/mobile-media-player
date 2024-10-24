@@ -36,9 +36,13 @@ export default function TracksList({
   }
 
   const handleTrackSelect = async (selectedTrack: Track) => {
+    console.log("Selected Track : " + selectedTrack);
+    console.log("Queue ID : " + typeof activeQueueId);
+
     const trackIndex = tracks.findIndex(
       (track) => track.url === selectedTrack.url
     );
+    console.log("Track index : " + trackIndex);
 
     if (trackIndex === -1) return;
 

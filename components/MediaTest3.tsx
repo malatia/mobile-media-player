@@ -45,6 +45,29 @@ export default function MediaTest3() {
     setIsReady(true);
   }
 
+  async function fetchAlbums() {
+    const songsOrError = await getAll({
+      limit: 2000,
+      offset: 0,
+      coverQuality: 50,
+      minSongDuration: 1000,
+      sortBy: SortSongFields.TITLE,
+      sortOrder: SortSongOrder.DESC,
+    });
+    console.log(songsOrError);
+    console.log(songsOrError.length);
+
+    // error
+    if (typeof songsOrError === "string") {
+      console.log("Error");
+      console.log(songsOrError);
+      return;
+    }
+
+    setTracks(songsOrError);
+    setIsReady(true);
+  }
+
   if (!isReady) {
     // Afficher un spinner ou une vue de chargement en attendant que la logique soit terminée
     return (
