@@ -2,14 +2,17 @@
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+<h2>Presentation</h2>
+This project is intended to be a simple to use music player without any ads. 
+I was bothered by apps  that took the liberty of adding ads between my songs. <br/>And out of the four apps I tested, they all did it. So, I decided to start a project to code my own app.<br/> This app is intended to be used with local files, since it's my own personnal need for the moment.<br/>A lot of this code was inspired by [this video](https://www.youtube.com/watch?v=9CElrkFwiBU)<br/> But since it's intended for iOS and with a dummy song library, and I'm on android and want to use it with actual local files, i adapted it.
 
-1. Install dependencies
+## Build Yourself
+
+1. Install dependencies with npm or yarn
 
    ```bash
    npm install
    ```
-
 2. Start the app
 
    ```bash
@@ -25,26 +28,19 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
+## Implemented features
 
-When you're ready, run:
+* Local files reading
+* Folders ordering
+* Tracks reading
+* Tracks queue
+* Shuffle
+* Search in songs name
+* Search in folders name
 
-```bash
-npm run reset-project
-```
+## Upcoming features
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+* Favorites
+* Playlists
+* Maybe some web reading or linking with spotify(and others)
+* Playback when app is minimized
