@@ -7,6 +7,7 @@ import { useThemeColors } from "@/hooks/useThemeColors";
 import { Track, useActiveTrack, useIsPlaying } from "react-native-track-player";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import LoaderKit from "react-native-loader-kit";
+import { TrackShortcutsMenu } from "./TrackShortcutsMenuProps";
 
 export type TracksListItemProps = {
   track: Track;
@@ -40,9 +41,18 @@ export default function TracksListItem({
 
           {isActiveTrack &&
             (playing ? (
-              <LoaderKit style={styles.trackPlayingIconIndicator} name="LineScaleParty" color={Colors.icon} />
+              <LoaderKit
+                style={styles.trackPlayingIconIndicator}
+                name="LineScaleParty"
+                color={Colors.icon}
+              />
             ) : (
-              <Ionicons style={styles.trackPausedIndicator} name="play" size={24} color={Colors.icon} />
+              <Ionicons
+                style={styles.trackPausedIndicator}
+                name="play"
+                size={24}
+                color={Colors.icon}
+              />
             ))}
         </View>
 
@@ -72,8 +82,13 @@ export default function TracksListItem({
               </Text>
             )}
           </View>
-
-          <Entypo name="dots-three-horizontal" size={18} color={Colors.icon} />
+          <TrackShortcutsMenu track={track}>
+            <Entypo
+              name="dots-three-horizontal"
+              size={18}
+              color={Colors.icon}
+            />
+          </TrackShortcutsMenu>
         </View>
       </View>
     </Pressable>

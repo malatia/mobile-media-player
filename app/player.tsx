@@ -1,5 +1,5 @@
 import { ActivityIndicator, StyleSheet, Text, View, Image } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDynamicStyles } from "@/hooks/useDynamicStyles";
 import { fontSize, screenPadding } from "@/constants/Tokens";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -13,20 +13,36 @@ import { PlayerRepeatToggle } from "@/components/PlayerRepeatToggle";
 import { PlayerProgressBar } from "@/components/PlayerProgressBar";
 import { usePlayerBackground } from "@/hooks/usePlayerBackground";
 import { LinearGradient } from "expo-linear-gradient";
+import useFavoritesStore from "@/store/favorites";
+import { boolean } from "ts-pattern/dist/patterns";
 
 export default function PlayerScreen() {
   const { defaultStyles, utilsStyles } = useDynamicStyles();
   const activeTrack = useActiveTrack();
   const Colors = useThemeColors();
+  const isFavorite = useFavoritesStore((state) => state.isFavorite);
+  const addFavorite = useFavoritesStore((state) => state.addFavorite);
+  const removeFavorite = useFavoritesStore((state) => state.removeFavorite);
+  const [isTrackFavorite, setIsTrackFavorite] = useState<Boolean>();
   const { imageColors } = usePlayerBackground(
     activeTrack?.artwork ?? require("@/assets/images/unknown_track.png")
   );
   const { top, bottom } = useSafeAreaInsets();
-  let isFavorite = false;
+
+  useEffect(() => {
+    if (activeTrack) setIsTrackFavorite(isFavorite(activeTrack.url));
+  });
 
   const toggleFavorite = () => {
-    isFavorite = !isFavorite;
-    console.log(isFavorite);
+    if (!activeTrack) return;
+    if (isFavorite(activeTrack.url)) {
+      removeFavorite(activeTrack.url);
+      setIsTrackFavorite(false);
+    } else {
+      addFavorite(activeTrack);
+      setIsTrackFavorite(true);
+    }
+    console.log(isFavorite(activeTrack.url));
   };
 
   if (!activeTrack) {
@@ -82,9 +98,9 @@ export default function PlayerScreen() {
 
                   {/* Favorite button icon */}
                   <FontAwesome
-                    name={isFavorite ? "heart" : "heart-o"}
+                    name={isTrackFavorite ? "heart" : "heart-o"}
                     size={20}
-                    color={isFavorite ? Colors.primary : Colors.icon}
+                    color={isTrackFavorite ? Colors.primary : Colors.icon}
                     style={{ marginHorizontal: 14 }}
                     onPress={toggleFavorite}
                   />

@@ -13,6 +13,7 @@ I was bothered by apps  that took the liberty of adding ads between my songs. <b
    ```bash
    npm install
    ```
+
 2. Start the app
 
    ```bash
@@ -30,17 +31,17 @@ You can start developing by editing the files inside the **app** directory. This
 
 ## Implemented features
 
-* Local files reading
-* Folders ordering
-* Tracks reading
-* Tracks queue
-* Shuffle
-* Search in songs name
-* Search in folders name
+- Local files reading
+- Folders ordering
+- Tracks reading
+- Tracks queue
+- Shuffle
+- Search in songs name
+- Search in folders name
+- Favorites
 
 ## Upcoming features
 
-* Favorites
-* Playlists
-* Maybe some web reading or linking with spotify(and others)
-* Playback when app is minimized
+- Playlists
+- Maybe some web reading or linking with spotify(and others)
+- Playback when app is minimized

@@ -1,8 +1,9 @@
 import { useLogTrackPlayerState } from "@/hooks/useLogTrackPlayerState";
 import { useSetupTrackPlayer } from "@/hooks/useSetupTrackPlayer";
+import useFavoritesStore from "@/store/favorites";
 import { SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -16,6 +17,12 @@ export default function App() {
   useSetupTrackPlayer({
     onLoad: handleTrackPlayerLoaded,
   });
+
+  
+  // Appeler `loadFavorites` dans un useEffect pour charger les favoris au démarrage
+  useEffect(() => {
+    useFavoritesStore.getState().loadFavorites();
+  }, []);
 
   useLogTrackPlayerState();
 

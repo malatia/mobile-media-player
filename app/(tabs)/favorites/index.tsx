@@ -5,9 +5,8 @@ import TracksList from "@/components/TracksList";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import SearchBar from "@/components/SearchBar";
-import library from "@/assets/data/library.json";
-import { useFavorites } from "@/store/library";
 import { generateTracksListId } from "@/helpers/miscellaneous";
+import useFavoritesStore from "@/store/favorites";
 
 export default function FavoritesScreen() {
   const headerHeight = useHeaderHeight();
@@ -16,7 +15,7 @@ export default function FavoritesScreen() {
 
   const [search, setSearch] = useState("");
 
-  const { favorites: favoritesTracks } = useFavorites();
+  const favoritesTracks = useFavoritesStore((state) => state.favorites)
 
   // If there's a search, then search for title, and, if there's an artist
   // search for the artist aswell
